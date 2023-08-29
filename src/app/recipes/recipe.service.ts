@@ -6,21 +6,25 @@ import { Subject } from 'rxjs';
 @Injectable()
 export class RecipeService{
     recipesChanged = new Subject<Recipe[]>();
-    private recipes: Recipe[] = [
-        new Recipe('A Test Recipe1', 'This is simply a test1',
-         'https://www.howtocook.recipes/wp-content/uploads/2021/05/Ratatouille-recipe.jpg',
-         [new Ingredient('Meat',1),
-        new Ingredient('French Fries',10)]),
-        new Recipe('A Test Recipe2', 'This is simply a test2', 
-         'https://www.howtocook.recipes/wp-content/uploads/2021/05/Ratatouille-recipe.jpg',
-         [new Ingredient('Meat',3),
-         new Ingredient('Fries',4)])
-      ];
-
+      // private recipes: Recipe[] = [
+      //     new Recipe('A Test Recipe1', 'This is simply a test1',
+      //     'https://www.howtocook.recipes/wp-content/uploads/2021/05/Ratatouille-recipe.jpg',
+      //     [new Ingredient('Meat',1),
+      //     new Ingredient('French Fries',10)]),
+      //     new Recipe('A Test Recipe2', 'This is simply a test2', 
+      //     'https://www.howtocook.recipes/wp-content/uploads/2021/05/Ratatouille-recipe.jpg',
+      //     [new Ingredient('Meat',3),
+      //     new Ingredient('Fries',4)])
+      //   ];
+      private recipes: Recipe[] = [];
       constructor(private slService: ShoppingListService) {
 
       }
-    
+      
+      setRecipes(recipes: Recipe[]){
+        this.recipes = recipes;
+        this.recipesChanged.next(this.recipes.slice());
+      }
       getRecipes(){
           return this.recipes.slice();
       }
